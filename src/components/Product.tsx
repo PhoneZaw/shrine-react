@@ -1,5 +1,6 @@
 import { ShoppingCartIcon } from "@heroicons/react/solid";
 import { useState } from "react";
+import { useCartContext } from "../context/CartContext";
 
 type Props = {
   id: number;
@@ -9,18 +10,19 @@ type Props = {
 };
 
 const Product = ({ id, name, price, imgUrl }: Props) => {
-  const addBtnHandler = () => {};
+  const { increaseItemQuantity } = useCartContext();
 
   return (
-    <div className="text-center text-sm flex-shrink-0 mx-5">
+    <div className="text-center text-sm flex-shrink-0 mx-5 my-4">
       <div className="bg-gray-400 h-44 w-48 relative">
+        <img className="w-full h-full object-cover" src={imgUrl} alt={name} />
         {/* <img src="" alt="" /> */}
-        <div className="absolute -bottom-3 left-[calc(50%-12px)] h-6 w-6 rounded-full bg-white z-10"></div>
+        <div className="absolute -bottom-3 left-[calc(50%-12px)] h-6 w-6 rounded-full bg-white z-10" />
 
         <button
           id="addBtn"
           className="absolute top-2 left-2 w-fit h-fit"
-          onClick={addBtnHandler}
+          onClick={() => increaseItemQuantity(id)}
         >
           <div className="relative">
             <ShoppingCartIcon className="w-6 h-6 text-black" />

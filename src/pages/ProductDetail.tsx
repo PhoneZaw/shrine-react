@@ -1,7 +1,7 @@
 import { ShoppingCartIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import React from "react";
-import Nav from "./detail/Nav";
+import Nav from "../components/detail/Nav";
 
 type Props = {};
 

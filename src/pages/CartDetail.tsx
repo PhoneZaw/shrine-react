@@ -2,14 +2,16 @@ import { MinusCircleIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ColorBox } from "../components/ProductDetail";
+import { ColorBox } from "./ProductDetail";
 import { useCartContext } from "../context/CartContext";
-import items from "./../data/items.json";
+import Products from "./../data/items.json";
 
 type Props = {};
 
 const CartDetail = (props: Props) => {
-  const { getTotalQuantity, cartItems } = useCartContext();
+  const { getTotalQuantity, cartItems, getAmount } = useCartContext();
+
+  const { total, subTotal, tax, shipping } = getAmount();
   return (
     <div className="bg-primary-dark h-full text-secondary-dim relative">
       {/* Head */}
@@ -34,19 +36,19 @@ const CartDetail = (props: Props) => {
       <div className="py-4 space-y-1 text-sm font-normal">
         <div className="flex justify-between items-center px-3 pl-12">
           <h5 className="uppercase">Total</h5>
-          <h3 className="text-2xl font-medium">$999.40</h3>
+          <h3 className="text-2xl font-medium">${total}</h3>
         </div>
         <div className="flex justify-between px-3 pl-12">
           <h5>Subtotal</h5>
-          <p>$115.00</p>
+          <p>${subTotal}</p>
         </div>
         <div className="flex justify-between px-3 pl-12">
           <h5>Shipping</h5>
-          <p>$10.00</p>
+          <p>${shipping}</p>
         </div>
         <div className="flex justify-between px-3 pl-12">
           <h5>Tax</h5>
-          <p>$11.40</p>
+          <p>${tax}</p>
         </div>
       </div>
 
@@ -65,7 +67,7 @@ type CartItemProps = {
 };
 
 const CartItem = ({ id, quantity }: CartItemProps) => {
-  const item = items.find((item) => item.id === id);
+  const item = Products.find((item) => item.id === id);
   useEffect(() => {}, []);
 
   if (!item) {
@@ -77,12 +79,18 @@ const CartItem = ({ id, quantity }: CartItemProps) => {
         <MinusCircleIcon className="w-6 h-6" />
       </button>
       {/* <img src="" alt="" /> */}
-      <div className="w-20 h-20 bg-gray-400 mx-3"></div>
+      <div className="w-20 h-20 bg-gray-400 mx-3">
+        <img
+          className="h-full w-full object-cover"
+          src={item?.imgUrl}
+          alt={item?.name}
+        />
+      </div>
       <div className="flex-1 flex h-24 ">
         <div className="flex-1 px-2 flex flex-col justify-between  h-full">
           <div className="text-sm">
             <h5 className="font-normal">Brand</h5>
-            <h3 className="">{item.name}</h3>
+            <h3 className="">{item?.name}</h3>
           </div>
           <p className="opacity-60 text-sm py-2 border-t border-white/20">
             No Size

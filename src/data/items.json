@@ -3,36 +3,37 @@
         "id": 1,
         "name": "Shoe",
         "price": 99,
-        "imgUrl": ""
+        "imgUrl": "/shoe.jpg"
     },
     {
         "id": 2,
         "name": "Hat",
         "price": 9,
-        "imgUrl": ""
+        "imgUrl": "/hat.jpg"
     },
     {
         "id": 3,
         "name": "Shirt",
         "price": 199,
-        "imgUrl": ""
+        "imgUrl": "shirt.jpg"
     },
     {
         "id": 4,
         "name": "T-Shirt",
         "price": 99,
-        "imgUrl": ""
+        "imgUrl": "t-shirt.jpg"
     },
     {
         "id": 5,
         "name": "Sport-Shirt",
         "price": 99,
-        "imgUrl": ""
+        "imgUrl": "sport-shirt.jpg"
     },
     {
         "id": 6,
         "name": "Sunglass",
         "price": 299,
-        "imgUrl": ""
+        "imgUrl": "sunglass.jpg"
     }
+    
 ]

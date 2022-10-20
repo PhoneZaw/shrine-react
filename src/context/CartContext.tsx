@@ -1,4 +1,6 @@
 import { createContext, useContext, useState } from "react";
+import Products from "./../data/items.json";
+
 type Props = {
   children: JSX.Element;
 };
@@ -17,6 +19,12 @@ type Product = {
 };
 
 type CartContextType = {
+  getAmount: () => {
+    total: number;
+    subTotal: number;
+    shipping: number;
+    tax: number;
+  };
   getTotalQuantity: () => number;
   getItemQuantity: (id: number) => number;
   increaseItemQuantity: (id: number) => void;
@@ -25,19 +33,22 @@ type CartContextType = {
   cartItems: CartItem[];
 };
 
-const dummyData = [
-  {
-    id: 1,
-    quantity: 1,
-  },
-  {
-    id: 2,
-    quantity: 4,
-  },
-] as CartItem[];
-
 const CartContext = (props: Props) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>(dummyData);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const getAmount = () => {
+    const subTotal = cartItems.reduce(
+      (total, curItem) =>
+        total + (Products.find((p) => p.id === curItem.id)?.price || 0),
+      0
+    );
+    const shipping = 10.0;
+    const tax = 11.4;
+
+    const total = subTotal + shipping + tax;
+
+    return { total, subTotal, shipping, tax };
+  };
 
   const getTotalQuantity = () => {
     return cartItems.length;
@@ -45,19 +56,47 @@ const CartContext = (props: Props) => {
   };
 
   const getItemQuantity = (id: number) => {
-    if (cartItems.find((item) => item.id === id)) {
-      // setCartItems((item) => )
-    }
-    return cartItems.find((item) => item.id === id)?.id || 0;
+    return cartItems.find((item) => item.id === id)?.quantity || 0;
   };
 
-  const increaseItemQuantity = (id: number) => {};
-  const decreaseItemQuantity = (id: number) => {};
-  const reomveItem = (id: number) => {};
+  const increaseItemQuantity = (id: number) => {
+    setCartItems((prevItem) => {
+      if (prevItem.find((item) => item.id === id) == null) {
+        return [...prevItem, { id, quantity: 1 }];
+      } else {
+        return prevItem.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity + 1 };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
+  };
+  const decreaseItemQuantity = (id: number) => {
+    setCartItems((prevItem) => {
+      if (prevItem.find((item) => item.id === id)?.quantity === 1) {
+        return prevItem.filter((item) => item.id !== id);
+      } else {
+        return prevItem.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity - 1 };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
+  };
+  const reomveItem = (id: number) => {
+    setCartItems((prevItem) => prevItem.filter((item) => item.id !== id));
+  };
 
   return (
     <Context.Provider
       value={{
+        getAmount,
         getTotalQuantity,
         getItemQuantity,
         increaseItemQuantity,

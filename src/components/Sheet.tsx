@@ -14,7 +14,7 @@ const Sheet = (props: Props) => {
       </button>
 
       {/* Product Shelf */}
-      <div className="grid grid-flow-col grid-rows-2 space-y-4 mt-14 overflow-x-scroll scrollbar-thin items-center h-fit py-6 scrollbar-thumb-secondary-dark scrollbar-track-transparent pb-10">
+      <div className="grid grid-flow-col grid-rows-2 mt-14 overflow-x-scroll scrollbar-thin items-center h-fit py-6 scrollbar-thumb-secondary-dark scrollbar-track-transparent pb-10">
         {/* <div className="space-y-10">
           <Product />
           <Product />
