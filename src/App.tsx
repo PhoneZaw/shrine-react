@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CartContext from "./context/CartContext";
 import CartDetail from "./pages/CartDetail";
 import Home from "./pages/Home";
+import ProductDetail from "./pages/ProductDetail";
 
 type Props = {};
 
@@ -16,7 +17,8 @@ const App = (props: Props) => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/CartDetail" element={<CartDetail />} />
+              {/* <Route path="/CartDetail" element={<CartDetail />} /> */}
+              {/* <Route path="/ProductDetail" element={<ProductDetail />} /> */}
             </Routes>
           </BrowserRouter>
         </div>

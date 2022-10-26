@@ -31,12 +31,21 @@ type CartContextType = {
   decreaseItemQuantity: (id: number) => void;
   reomveItem: (id: number) => void;
   cartItems: CartItem[];
+  cartOpened: boolean;
+  setCartOpened: (b: boolean) => void;
 };
 
 const CartContext = (props: Props) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  const [cartOpened, setCartOpened] = useState(false);
+
+  // const [detailOpened, setDetailOpened] = useState(false)
+
   const getAmount = () => {
+    if (cartItems.length === 0) {
+      return { total: 0, subTotal: 0, shipping: 0, tax: 0 };
+    }
     const subTotal = cartItems.reduce(
       (total, curItem) =>
         total + (Products.find((p) => p.id === curItem.id)?.price || 0),
@@ -103,6 +112,8 @@ const CartContext = (props: Props) => {
         decreaseItemQuantity,
         reomveItem,
         cartItems,
+        cartOpened,
+        setCartOpened,
       }}
     >
       {props.children}

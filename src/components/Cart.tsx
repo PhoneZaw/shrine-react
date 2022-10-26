@@ -9,15 +9,15 @@ type Props = {};
 const Cart = (props: Props) => {
   const { cartItems } = useCartContext();
   return (
-    <div className="h-20 px-4 py-4 bg-primary-dark flex items-center justify-center gap-4 relative border-none">
-      <div className="absolute left-0 top-0 border-x-8 border-x-transparent w-0 h-0 border-t-[25px] border-r-[25px] border-t-black border-r-transparent border-b-0 border-l-0 overflow-x-auto" />
-      <Link className="sticky z-10" to="/CartDetail">
+    <Link to="/CartDetail">
+      <div className="h-20 px-4 py-4 bg-primary-dark flex items-center justify-center gap-4 relative border-none">
+        <div className="absolute left-0 top-0 border-x-8 border-x-transparent w-0 h-0 border-t-[25px] border-r-[25px] border-t-black border-r-transparent border-b-0 border-l-0 overflow-x-auto" />
         <ShoppingCartIcon className="h-6 w-6 mx-2" />
-      </Link>
-      {cartItems.map((item) => (
-        <CartSmallItem key={item.id} {...item} />
-      ))}
-    </div>
+        {cartItems.map((item) => (
+          <CartSmallItem key={item.id} {...item} />
+        ))}
+      </div>
+    </Link>
   );
 };
 
